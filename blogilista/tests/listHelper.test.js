@@ -116,6 +116,24 @@ describe('total likes', () => {
     })
   })
 
+  describe('most likes', () => {    
+
+    test('when list has only one blog returns that', () => {
+      const result = listHelper.mostLikes(listWithOneBlog)
+      expect(result).toEqual({"author": "Edsger W. Dijkstra", "likes": 5})
+    })
+
+    test('when several blogs returns the correct author', () => {    
+        const result = listHelper.mostLikes(multipleBlogs)
+        expect(result).toEqual({"author": "Edsger W. Dijkstra", "likes": 17})
+    })
+
+    test('when empty blogs returns null', () => {    
+        const result = listHelper.mostLikes([])
+        expect(result).toEqual(null)
+    })
+  })
+
 
 
 
