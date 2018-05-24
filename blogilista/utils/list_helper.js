@@ -22,6 +22,31 @@ const favoriteBlog = (blogs) => {
     return blogs.reduce(reducer, blogs[0])
   }
 
+const mostBlogs = (blogs) => {
+    if (blogs.length === 0)
+        return null
+
+    let authors = []
+
+    const updateAuthors = (author) => {
+        const index = authors.findIndex(item => item.author === author)
+        if (index === -1)
+            authors.push({author: author, blogs: 1})
+        else
+            authors[index].blogs += 1
+    }
+
+    blogs.forEach((blog) => {
+        updateAuthors(blog.author)
+    })
+
+    const reducer = (max, item) => {
+        return item.blogs > max.blogs ? item : max
+    }
+
+    return authors.reduce(reducer, authors[0])
+}
+
   module.exports = {
-    dummy, totalLikes, favoriteBlog
+    dummy, totalLikes, favoriteBlog, mostBlogs
   }
