@@ -22,6 +22,10 @@ blogsRouter.post('', async (request, response) => {
   try {
     const body = request.body
 
+    if (body.title === undefined || body.url === undefined ) {
+      return response.status(400).json({ error: 'content missing' })
+    }
+
     const blog = new Blog({
       title: body.title,
       author: body.author,
