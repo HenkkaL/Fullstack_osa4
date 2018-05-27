@@ -2,6 +2,7 @@ const supertest = require('supertest')
 const { app, server } = require('../index')
 const api = supertest(app)
 const helper = require('./test_helper')
+const Blog = require('../models/blog')
 
 
 test('all blogs are returned as json by GET /api/blogs', async () => {
@@ -101,6 +102,35 @@ describe('addition of a new blog', async () => {
         expect(blogsAfter.length).toBe(blogsBefore.length)
     })
 })
+
+describe('deletion of a blog', async () => {
+    let addedBlog
+
+    beforeAll(async () => {
+      addedBlog = new Blog({
+        "title": "deleteTestTitle",
+        "author": "deleteTestAuthor",
+        "url": "deleteTestUrli",
+        "likes": 4
+      })
+      await addedBlog.save()
+    })
+
+    test('DELETE /api/blogs/:id succeeds with proper statuscode', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+
+      await api
+        .delete(`/api/blogs/${addedBlog._id}`)
+        .expect(204)
+
+      const blogsAfterOperation = await helper.blogsInDb()
+
+      const authors = blogsAfterOperation.map(r => r.author)
+
+      expect(authors).not.toContain(addedBlog.author)
+      expect(blogsAfterOperation.length).toBe(blogsAtStart.length - 1)
+    })
+  })
 
 afterAll(() => {
     server.close()
