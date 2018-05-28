@@ -11,7 +11,7 @@ describe('on initialized blog database', async () => {
         const blogObjects = helper.initialBlogs.map(b => new Blog(b))
         await Promise.all(blogObjects.map(b => b.save()))
     })
-    
+
     test('all blogs are returned as json by GET /api/blogs', async () => {
 
         await api
@@ -25,10 +25,10 @@ describe('on initialized blog database', async () => {
 
         test('new blog can be added ', async () => {
             const newBlog = {
-                "title": "testitestiTesti",
-                "author": "author",
-                "url": "urli",
-                "likes": 4
+                'title': 'testitestiTesti',
+                'author': 'author',
+                'url': 'urli',
+                'likes': 4
             }
 
             const blogsBefore = await helper.blogsInDb()
@@ -48,9 +48,9 @@ describe('on initialized blog database', async () => {
 
         test('new blog with undefined likes can be added ', async () => {
             const newBlog = {
-                "title": "testitestiTesti",
-                "author": "author",
-                "url": "urli"
+                'title': 'testitestiTesti',
+                'author': 'author',
+                'url': 'urli'
             }
 
             const blogsBefore = await helper.blogsInDb()
@@ -70,9 +70,9 @@ describe('on initialized blog database', async () => {
 
         test('new blog with empty url is rejected ', async () => {
             const newBlog = {
-                "title": "testitestiTesti",
-                "author": "author",
-                "likes": 4
+                'title': 'testitestiTesti',
+                'author': 'author',
+                'likes': 4
             }
 
             const blogsBefore = await helper.blogsInDb()
@@ -92,9 +92,9 @@ describe('on initialized blog database', async () => {
 
         test('new blog with empty title is rejected ', async () => {
             const newBlog = {
-                "author": "author",
-                "url": "urli",
-                "likes": 4
+                'author': 'author',
+                'url': 'urli',
+                'likes': 4
             }
 
             const blogsBefore = await helper.blogsInDb()
@@ -115,10 +115,10 @@ describe('on initialized blog database', async () => {
 
         beforeAll(async () => {
             addedBlog = new Blog({
-                "title": "deleteTestTitle",
-                "author": "deleteTestAuthor",
-                "url": "deleteTestUrli",
-                "likes": 4
+                'title': 'deleteTestTitle',
+                'author': 'deleteTestAuthor',
+                'url': 'deleteTestUrli',
+                'likes': 4
             })
             await addedBlog.save()
         })
